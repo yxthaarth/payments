@@ -27,15 +27,21 @@ export function SiteHeader() {
         <span>Swiftly Pay</span>
       </Link>
 
-      <button
-        aria-controls="primary-nav"
-        aria-expanded={menuOpen}
-        className="menu-toggle"
-        onClick={() => setMenuOpen((current) => !current)}
-        type="button"
-      >
-        <span>{menuOpen ? "Close" : "Menu"}</span>
-      </button>
+      <div className="header-actions-group">
+        <Link className="button button-primary header-button" href="/send">
+          Send Money
+        </Link>
+
+        <button
+          aria-controls="primary-nav"
+          aria-expanded={menuOpen}
+          className="menu-toggle"
+          onClick={() => setMenuOpen((current) => !current)}
+          type="button"
+        >
+          <span>{menuOpen ? "Close" : "Menu"}</span>
+        </button>
+      </div>
 
       <nav
         aria-label="Primary"
@@ -48,10 +54,6 @@ export function SiteHeader() {
           </Link>
         ))}
       </nav>
-
-      <Link className="button button-primary header-button" href="/send">
-        Send Money
-      </Link>
     </header>
   );
 }
