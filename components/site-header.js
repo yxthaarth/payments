@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -9,6 +13,13 @@ const navItems = [
 ];
 
 export function SiteHeader() {
+  const pathname = usePathname();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
   return (
     <header className="site-header">
       <Link className="brand" href="/">
@@ -16,7 +27,21 @@ export function SiteHeader() {
         <span>Swiftly Pay</span>
       </Link>
 
-      <nav className="site-nav" aria-label="Primary">
+      <button
+        aria-controls="primary-nav"
+        aria-expanded={menuOpen}
+        className="menu-toggle"
+        onClick={() => setMenuOpen((current) => !current)}
+        type="button"
+      >
+        <span>{menuOpen ? "Close" : "Menu"}</span>
+      </button>
+
+      <nav
+        aria-label="Primary"
+        className={`site-nav ${menuOpen ? "site-nav-open" : ""}`}
+        id="primary-nav"
+      >
         {navItems.map((item) => (
           <Link key={item.href} href={item.href}>
             {item.label}
